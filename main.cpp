@@ -10,5 +10,6 @@ int main() {
 	system.handleEvent(ContainmentSystem::Event::SystemReset);
 	system.handleEvent(ContainmentSystem::Event::SystemFailure);
 	system.handleEvent(ContainmentSystem::Event::ManualLockdown);
+	system.handleEvent(ContainmentSystem::Event::SystemReset);
 	return 0;
 }
