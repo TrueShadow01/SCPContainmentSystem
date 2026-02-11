@@ -46,7 +46,7 @@ LOCKDOWN → LOCKDOWN
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 Project structure:
 
