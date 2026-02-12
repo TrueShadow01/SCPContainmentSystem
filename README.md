@@ -48,13 +48,6 @@ LOCKDOWN → LOCKDOWN<br>
 
 ## Architecture
 
-Project structure:
-
-ContainmentSystem.h
-ContainmentSystem.cpp
-main.cpp
-
-
 Core components:
 
 - `ContainmentSystem` class
