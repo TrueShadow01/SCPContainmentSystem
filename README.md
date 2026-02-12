@@ -1,4 +1,4 @@
-# SCP Containment System
+# SCP Containment System (EARLY ACCESS VERISON)
 
 A finite state machine–based SCP containment control system written in modern C++.
 
@@ -36,10 +36,10 @@ The system uses:
 
 ### Escalation Rules
 
-CONTAINED → RISK
-RISK → BREACHED
-BREACHED → BREACHED
-LOCKDOWN → LOCKDOWN
+CONTAINED → RISK<br>
+RISK → BREACHED<br>
+BREACHED → BREACHED<br>
+LOCKDOWN → LOCKDOWN<br>
 
 
 `SystemReset` overrides all states and restores `CONTAINED`.
@@ -50,7 +50,7 @@ LOCKDOWN → LOCKDOWN
 
 Project structure:
 
-ContainmentSystem.hpp
+ContainmentSystem.h
 ContainmentSystem.cpp
 main.cpp
 
