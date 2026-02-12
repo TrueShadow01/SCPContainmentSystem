@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="SCPContainment.vcxproj" />
+  <Project Path="SCPContainment.vcxproj" Id="f4904308-6ac3-4444-b186-f3fd8d81b834" />
 </Solution>
