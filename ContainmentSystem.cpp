@@ -1,9 +1,41 @@
 #include <iostream>
 #include <string>
+#include <gpiod.h>
 #include "ContainmentSystem.h"
 
 ContainmentSystem::ContainmentSystem() : currentState(State::CONTAINED) {
 	log("System initialized. State: " + stateToString(currentState));
+	if (!chip) {
+		std::cerr << "Failed to open GPIO chip" << std::endl;
+		exit(1);
+	}
+	
+	chip = gpiod_chip_open("/dev/gpiochip0");
+	gpiod_line_settings* settings = gpiod_line_settings_new();
+	gpiod_line_settings_set_direction(settings, GPIOD_LINE_DIRECTION_OUTPUT);
+	gpiod_line_config* config = gpiod_line_config_new();
+	unsigned int offsets[] = {17};
+	gpiod_line_config_add_line_settings(config, offsets, 1, settings);
+	
+	request = gpiod_chip_request_lines(chip, NULL, config);
+	if (!request) {
+		std::cerr << "Failed to request GPIO line" << std::endl;
+		exit(1);
+	}
+	
+	gpiod_line_request_set_value(request, 17, GPIOD_LINE_VALUE_INACTIVE);
+}
+
+ContainmentSystem::~ContainmentSystem() {
+	if (request) {
+		gpiod_line_request_release(request);
+		std::cout << "Released GPIO Line Request" << std::endl;
+	}
+	
+	if (chip) {
+		gpiod_chip_close(chip);
+		std::cout << "Released GPIO Chip" << std::endl;
+	}
 }
 
 ContainmentSystem::State ContainmentSystem::getState() const {
@@ -74,6 +106,12 @@ void ContainmentSystem::handleEvent(Event e) {
 
 	if (previousState != currentState) {
 		log("State changed from " + stateToString(previousState) + " to " + stateToString(currentState));
+		
+		if (currentState == State::CONTAINED) {
+			gpiod_line_request_set_value(request, 17, GPIOD_LINE_VALUE_INACTIVE);
+		} else {
+			gpiod_line_request_set_value(request, 17, GPIOD_LINE_VALUE_ACTIVE);
+		}
 	}
 }
 
