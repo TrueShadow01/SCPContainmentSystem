@@ -1,4 +1,4 @@
-# SCP Containment System (EARLY ACCESS VERISON)
+# SCP Containment System
 
 A finite state machine–based SCP containment control system written in modern C++.
 
@@ -54,11 +54,18 @@ Core components:
 - Scoped enums (`enum class`) for type safety
 - State transition logic using nested switches
 - Console-based logging
-- Automatic escalation helper
+- Hardware integration via libgpiod (Raspberry Pi 5)
+- GPIO17 LED state indication
 
-The system is designed to be extendable for:
+The system now supports real-time hardware feedback:
 
-- GPIO integration (Raspberry Pi)
+- CONTAINED → LED OFF
+- Any other state → LED ON
+
+Designed to be extendable for:
+
+- Multi-LED status panels
+- Physical buttons and motion sensors
 - Web dashboard control
 - File-based logging
 - Random event simulation
@@ -66,17 +73,37 @@ The system is designed to be extendable for:
 
 ---
 
-## Build
+## Hardware Requirements
+
+- Raspberry Pi 5
+- LED
+- 220–330Ω resistor
+- GPIO17 (BCM numbering)
+
+---
+
+## Build (Tested on Raspberry Pi 5)
+
+Install dependencies:
+
+```bash
+sudo apt install build-essential libgpiod-dev
+```
 
 Compile with:
 
 ```bash
-g++ main.cpp ContainmentSystem.cpp -o scp_containment
+g++ main.cpp ContainmentSystem.cpp -o scp -lgpiod
 ```
 Run:
 ```
-./scp_containment
+./scp
 ```
+or
+```
+sudo ./scp
+```
+
 ## Future Improvements
 - Random event simulation engine
 - Probability-based breach escalation
