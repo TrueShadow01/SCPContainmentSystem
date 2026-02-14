@@ -54,7 +54,7 @@ Core components:
 - Scoped enums (`enum class`) for type safety
 - State transition logic using nested switches
 - Console-based logging
-- Hardware integration via libgpiod (Raspberry Pi 5)
+- Hardware integration with Raspberry Pi 5 via libgpiod
 - GPIO17 LED state indication
 
 The system now supports real-time hardware feedback:
